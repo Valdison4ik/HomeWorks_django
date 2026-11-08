@@ -15,4 +15,4 @@ class SubTaskAdmin(admin.ModelAdmin):
 
 @admin.register(CategoryModel)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('title',)
+    list_display = ('name',)

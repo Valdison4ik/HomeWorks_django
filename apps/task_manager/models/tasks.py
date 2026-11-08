@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.functions import TruncDate
 
 from apps.base.models import TimeStamp1, Statuses
 from .categories import CategoryModel
@@ -7,7 +8,7 @@ from .categories import CategoryModel
 class TaskModel(TimeStamp1):
     """ Задача для выполнения """
     title = models.CharField(max_length=255,
-                             unique_for_date='created_at',
+                             # unique_for_date='created_at',
                              # db_comment='Название задачи.Уникально для даты.'
                              )
     description = models.TextField(verbose_name='Description',
@@ -44,3 +45,8 @@ class TaskModel(TimeStamp1):
         # db_table_comment = 'Задача для выполнения.'
         verbose_name = 'Task'
         verbose_name_plural = 'Tasks'
+        ordering = ['-created_at']
+        constraints = [
+            models.UniqueConstraint(
+                TruncDate('created_at'), 'title',
+                name='unique_title_in_date') ]

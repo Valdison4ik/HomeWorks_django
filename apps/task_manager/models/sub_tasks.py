@@ -39,3 +39,8 @@ class SubTaskModel(TimeStamp1):
         # db_table_comment = 'Отдельная часть основной задачи (Task).'
         verbose_name = 'Subtask'
         verbose_name_plural = 'Subtasks'
+        ordering = ['-created_at']
+        constraints = [
+            models.UniqueConstraint(
+                'task', 'title',
+                name='unique_title_in_task')]
